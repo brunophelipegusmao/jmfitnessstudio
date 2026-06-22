@@ -8,7 +8,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import Fade from "embla-carousel-fade";
 import Image from "next/image";
 
 type HeroBanner = {
@@ -24,14 +23,14 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
   return (
     <Carousel
       opts={{ loop: true }}
-      plugins={[Autoplay({ delay: 8000, stopOnInteraction: false }), Fade()]}
-      className="relative w-full aspect-video sm:aspect-21/9 rounded-lg overflow-hidden"
+      plugins={[Autoplay({ delay: 8000, stopOnInteraction: false })]}
+      className="w-full rounded-lg overflow-hidden"
     >
       <CarouselContent className="ml-0">
         {banners.map((banner, index) => (
           <CarouselItem
             key={banner.src}
-            className="absolute inset-0 pl-0"
+            className="relative aspect-video basis-full pl-0 sm:aspect-21/9"
           >
             <Image
               src={banner.src}
