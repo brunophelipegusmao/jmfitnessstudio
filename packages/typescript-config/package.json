@@ -1,0 +1,16 @@
+{
+  "name": "@jmfitnessstudio/typescript-config",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configurations",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    "./base.json": "./base.json",
+    "./nextjs.json": "./nextjs.json",
+    "./nestjs.json": "./nestjs.json"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
