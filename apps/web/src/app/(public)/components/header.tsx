@@ -39,7 +39,7 @@ export default function Header() {
               href={process.env.NEXT_PUBLIC_ECOMMERCE_URL ?? "#"}
               className="relative z-10"
             >
-              Suplementos
+              JM Store
             </a>
           </li>
           <li className="hidden md:flex mx-4 px-4 py-3">
