@@ -1,6 +1,7 @@
 import HeroCarousel from "@/app/(public)/components/hero-carousel";
 import PlanCard from "@/app/(public)/components/plan-card";
 import SubtitleH2 from "@/app/(public)/components/subtitle-h2";
+import Header from "./(public)/components/header";
 
 const heroBanners = [
   {
@@ -28,6 +29,7 @@ const heroBanners = [
 export default function Home() {
   return (
     <>
+      <Header />
       <main className="p-5 ">
         <section
           aria-label="banner com avisos e propagandas"

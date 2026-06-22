@@ -35,18 +35,18 @@ export default function Header() {
             <Link href="/login">Área do Aluno</Link>
           </li>
           <li className="hidden md:flex mx-4 bg-secondary rounded-full px-4 py-3 animate-pulse">
-            <a
-              href={process.env.NEXT_PUBLIC_ECOMMERCE_URL ?? "#"}
+            <Link
+              href='/store'
               className="relative z-10"
             >
               JM Store
-            </a>
+            </Link>
           </li>
           <li className="hidden md:flex mx-4 px-4 py-3">
-            <a href="/about">Planos</a>
+            <Link href="/plans">Planos</Link>
           </li>
           <li className="hidden md:flex mx-4 px-4 py-3">
-            <a href="/contact">Eventos</a>
+            <Link href="/events">Eventos</Link>
           </li>
         </ul>
         <Sheet>
@@ -77,28 +77,28 @@ export default function Header() {
                   <Link href="/login">Área do Aluno</Link>
                 </li>
                 <li className="my-4">
-                  <a
+                  <Link
                     href={process.env.NEXT_PUBLIC_ECOMMERCE_URL ?? "#"}
                     className="relative z-10"
                   >
-                    Suplementos
-                  </a>
+                    JM Store
+                  </Link>
                 </li>
                 <li className="my-4">
-                  <a href="/about">Planos</a>
+                  <Link href="/plans">Planos</Link>
                 </li>
                 <li className="my-4">
-                  <a href="/contact">Eventos</a>
+                  <Link href="/events">Eventos</Link>
                 </li>
               </ul>
               <Separator />
               <div className="flex flex-col items-start justify-start text-primary">
                 <ul>
                   <li className="my-4">
-                    <a href="/profile">Perfil</a>
+                    <Link href="/profile">Perfil</Link>
                   </li>
                   <li className="my-4">
-                    <a href="/settings">Configurações</a>
+                    <Link href="/settings">Configurações</Link>
                   </li>
                 </ul>
               </div>

@@ -87,20 +87,56 @@ ESTRUTURA DE PASTAS:
   src/app/
     layout.tsx              → root layout: html, body, fontes, providers globais
     globals.css             → único tema OKLCH — NÃO duplicar variáveis aqui
-    (public)/               → landing page e site público
-      layout.tsx            → inclui Header público
-      page.tsx              → home
-      components/           → componentes específicos da landing
-    (auth)/                 → login, cadastro (sem Header)
-      login/page.tsx
+    page.tsx                → / (landing page)
+
+    (public)/               → com Header público — site aberto
+      layout.tsx            → renderiza <Header /> + children
+      events/page.tsx       → /events — eventos públicos
+      plans/page.tsx        → /plans — planos disponíveis
+      components/           → componentes específicos da landing (header, hero, etc.)
+
+    (auth)/                 → sem Header — fluxo de autenticação
+      layout.tsx            → layout limpo (só children)
+      login/page.tsx        → /login — login único (todos os papéis)
+      register/page.tsx     → /register — cadastro de novo usuário
+
     (student)/              → área do aluno (planos master/guest)
-      layout.tsx
-      components/           → componentes específicos do aluno
-    (panel)/                → painel admin/instructor/staff
-      layout.tsx
+      layout.tsx            → sidebar do aluno + children
+      student/
+        page.tsx            → /student — dashboard (status do plano)
+        checkin/page.tsx    → /student/checkin — auto check-in (plano master, ativo)
+        metrics/page.tsx    → /student/metrics — evolução corporal (plano master)
+        events/page.tsx     → /student/events — inscrição em eventos (guest + master)
+        orders/page.tsx     → /student/orders — histórico de pedidos do e-commerce
+      components/           → componentes específicos da área do aluno
+
+    (panel)/                → painel admin (owner/instructor/staff)
+      layout.tsx            → sidebar do painel + children
+      panel/
+        page.tsx                    → /panel — dashboard
+        students/
+          page.tsx                  → /panel/students — lista de alunos
+          [id]/page.tsx             → /panel/students/[id] — detalhes (métricas, histórico, checkin)
+        instructors/page.tsx        → /panel/instructors — gestão de professores
+        staff/page.tsx              → /panel/staff — gestão de funcionários
+        checkin/page.tsx            → /panel/checkin — liberar check-in por cortesia (staff)
+        events/
+          page.tsx                  → /panel/events — lista de eventos
+          [id]/page.tsx             → /panel/events/[id] — editar / publicar / aprovar
+        financials/page.tsx         → /panel/financials — pagamentos e planos de alunos
+        products/
+          page.tsx                  → /panel/products — catálogo de produtos (admin)
+          [id]/page.tsx             → /panel/products/[id] — criar / editar produto
+        orders/page.tsx             → /panel/orders — gestão de pedidos do e-commerce
       components/           → componentes específicos do painel
-    (ecommerce)/            → catálogo de produtos
-      layout.tsx
+
+    (ecommerce)/            → catálogo público de produtos
+      layout.tsx            → layout da loja (header da loja, ícone do carrinho)
+      store/
+        page.tsx            → /store — listagem de produtos
+        [slug]/page.tsx     → /store/[slug] — página do produto individual
+        cart/page.tsx       → /store/cart — carrinho de compras
+        checkout/page.tsx   → /store/checkout — checkout (Stripe — pendente)
       components/           → componentes específicos do catálogo
 
   src/components/ui/        → primitivos shadcn compartilhados entre route groups
@@ -154,7 +190,7 @@ CODE-QUALITY:
 
 <rhythm>
 before-implement: GATE-1 → check latest docs via Context7 → then code
-new-page: identificar route group correto → criar page.tsx no grupo → layout próprio se necessário
+new-page: identificar route group correto pela tabela em ESTRUTURA DE PASTAS → criar page.tsx no grupo → layout próprio se necessário
 new-component:
   - é primitivo UI? → pnpm dlx shadcn@latest add → src/components/ui/
   - é de feature? → criar em (route-group)/components/
@@ -165,11 +201,11 @@ new-font: next/font/local em layout.tsx → arquivo .ttf em src/fonts/
 </rhythm>
 
 <ref label="on-demand — read only when domain is active">
-src/app/(public)/           → landing page e componentes públicos
-src/app/(auth)/             → login e cadastro
-src/app/(student)/          → área do aluno
-src/app/(panel)/            → painel admin/instructor/staff
-src/app/(ecommerce)/        → catálogo de produtos
+src/app/(public)/           → landing page e componentes públicos (/events, /plans)
+src/app/(auth)/             → login e cadastro (/login, /register)
+src/app/(student)/          → área do aluno (/student, checkin, metrics, events, orders)
+src/app/(panel)/            → painel admin (/panel e todos os sub-domínios)
+src/app/(ecommerce)/        → catálogo de produtos (/store, [slug], cart, checkout)
 src/components/ui/          → primitivos shadcn compartilhados
 src/store/                  → stores Zustand
 src/app/globals.css         → tema único do projeto
