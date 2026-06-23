@@ -34,7 +34,8 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
     const total = banners.length;
     const forwardDist = (next - prev + total) % total;
     const backwardDist = (prev - next + total) % total;
-    const from: "left" | "right" = forwardDist <= backwardDist ? "right" : "left";
+    const from: "left" | "right" =
+      forwardDist <= backwardDist ? "right" : "left";
 
     prevIndexRef.current = next;
 
@@ -62,13 +63,16 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
   }, [emblaApi, onSelect]);
 
   return (
-    <Carousel
-      setApi={setEmblaApi}
-      opts={{ loop: true }}
-      plugins={[Autoplay({ delay: 8000, stopOnInteraction: false })]}
-      className="relative w-full aspect-video sm:aspect-21/9 rounded-lg overflow-hidden"
+    <section
+      aria-label="banner com avisos e propagandas"
+      className="w-full py-5"
     >
-      <CarouselContent className="ml-0">
+      <Carousel
+        setApi={setEmblaApi}
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 8000, stopOnInteraction: false })]}
+        className="relative w-full aspect-video sm:aspect-21/9 rounded-lg overflow-hidden"
+      >
         {banners.map((banner, index) => {
           const isCurrent = index === current;
           const isEntering = entering !== null && index === entering.index;
@@ -90,9 +94,9 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
           }
 
           return (
-            <CarouselItem
+            <div
               key={banner.src}
-              className="absolute inset-0 pl-0"
+              className="absolute inset-0"
               style={{ transform, zIndex, transition }}
               onTransitionEnd={isEntering ? handleTransitionEnd : undefined}
             >
@@ -104,18 +108,28 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
                 sizes="100vw"
                 className="object-cover"
               />
-            </CarouselItem>
+            </div>
           );
         })}
-      </CarouselContent>
-      <CarouselPrevious
-        size="icon-lg"
-        className="left-4 border-none bg-accent/90 text-accent-foreground hover:bg-accent sm:left-6"
-      />
-      <CarouselNext
-        size="icon-lg"
-        className="right-4 border-none bg-accent/90 text-accent-foreground hover:bg-accent sm:right-6"
-      />
-    </Carousel>
+
+        {/* Embla tracking layer — invisible, used only for navigation and autoplay */}
+        <div className="absolute inset-0 invisible pointer-events-none">
+          <CarouselContent>
+            {banners.map((banner) => (
+              <CarouselItem key={banner.src} />
+            ))}
+          </CarouselContent>
+        </div>
+
+        <CarouselPrevious
+          size="icon-lg"
+          className="z-10 left-4 border-none bg-accent/90 text-accent-foreground hover:bg-accent sm:left-6"
+        />
+        <CarouselNext
+          size="icon-lg"
+          className="z-10 right-4 border-none bg-accent/90 text-accent-foreground hover:bg-accent sm:right-6"
+        />
+      </Carousel>
+    </section>
   );
 }

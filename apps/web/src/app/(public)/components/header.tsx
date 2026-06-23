@@ -23,7 +23,7 @@ export default function Header() {
         <Image
           src="/icons/icon-wt.png"
           alt="JM Fitness Studio"
-          className="h-20 w-auto"
+          className="h-20 w-auto ml-6"
           width={80}
           height={80}
           priority
@@ -78,7 +78,7 @@ export default function Header() {
                 </li>
                 <li className="my-4">
                   <Link
-                    href={process.env.NEXT_PUBLIC_ECOMMERCE_URL ?? "#"}
+                    href='/store'
                     className="relative z-10"
                   >
                     JM Store
