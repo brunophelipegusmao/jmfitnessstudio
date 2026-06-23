@@ -7,5 +7,8 @@ export function setupSwagger(app: INestApplication) {
     .setVersion('1.0')
     .build();
 
-  SwaggerModule.setup('docs', app, SwaggerModule.createDocument(app, config));
+  const document = SwaggerModule.createDocument(app, config, {
+    ignoreGlobalPrefix: true,
+  });
+  SwaggerModule.setup('docs', app, document);
 }
