@@ -2,8 +2,9 @@
   "extends": "@jmfitnessstudio/typescript-config/nestjs.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*", "drizzle.config.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "migrations"]
 }
