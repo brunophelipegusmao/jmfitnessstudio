@@ -1,7 +1,11 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { db } from '@jmfitnessstudio/db';
-import { users, sessions, accounts, verifications } from '@jmfitnessstudio/db';
+import { APIError } from 'better-auth/api';
+import { eq } from 'drizzle-orm';
+import { db, users } from '@jmfitnessstudio/db';
+import { accounts, sessions, verifications } from '@jmfitnessstudio/db';
+
+const ADMIN_ROLES = ['owner', 'instructor', 'staff'] as const;
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -14,7 +18,11 @@ export const auth = betterAuth({
     },
   }),
 
-  generateId: () => crypto.randomUUID(),
+  advanced: {
+    database: {
+      generateId: 'uuid',
+    },
+  },
 
   emailAndPassword: {
     enabled: true,
@@ -28,10 +36,36 @@ export const auth = betterAuth({
     },
   },
 
+  emailVerification: {
+    sendOnSignUp: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      // TODO: substituir por email service quando módulo de notificações for implementado
+      console.log(`[DEV] Verification URL for ${user.email}: ${url}`);
+    },
+  },
+
+  databaseHooks: {
+    account: {
+      create: {
+        before: async (data) => {
+          if (data.providerId === 'google') {
+            const user = await db.query.users.findFirst({
+              where: eq(users.id, data.userId),
+            });
+
+            if (user && ADMIN_ROLES.includes(user.role as (typeof ADMIN_ROLES)[number])) {
+              throw new APIError('FORBIDDEN', {
+                message: 'Admin users must sign in with email and password',
+              });
+            }
+          }
+        },
+      },
+    },
+  },
+
   user: {
     additionalFields: {
-      // input: false em todos — nenhum campo de negócio
-      // pode ser definido pelo usuário durante o cadastro
       role: {
         type: 'string',
         required: true,

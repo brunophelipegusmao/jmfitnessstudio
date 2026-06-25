@@ -235,6 +235,16 @@ validation: class-validator + class-transformer on DTOs
 guards: RolesGuard + PlanGuard — role-based + plan+subscription_status per route
 never: logic in controllers — always delegate to services
 
+seeds:
+location: apps/api/seeds/
+naming: snake_case descrevendo a ação — ex: create_developer_user.ts, populate_plans.ts
+script: pnpm seed:<nome> em apps/api/package.json — ex: seed:developer
+runner: tsx (devDependency de apps/api)
+rules:
+- sempre idempotente — verificar se dado já existe antes de criar
+- credenciais via variáveis de ambiente — nunca hardcoded
+- único developer permitido no sistema
+
 stripe-webhook:
 endpoint: raw body required — configure Fastify rawBody before JSON parse
 signature: always verify stripe-signature header before processing

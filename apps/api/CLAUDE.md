@@ -216,6 +216,16 @@ stripe-webhook:
   idempotency: check stripe_payment_id exists before updating financials
   metadata: always read metadata.type before deciding what to update
 
+seeds:
+  location: apps/api/seeds/
+  naming: snake_case descrevendo a ação — ex: create_developer_user.ts, populate_plans.ts
+  script: pnpm seed:<nome> em package.json — ex: "seed:developer": "tsx seeds/create_developer_user.ts"
+  runner: tsx
+  rules:
+    - sempre idempotente — verificar se dado já existe antes de criar
+    - credenciais via variáveis de ambiente — nunca hardcoded
+    - único developer permitido no sistema
+
 ---
 
 ## SWAGGER
@@ -275,6 +285,7 @@ new-endpoint: DTO (@ApiProperty) → guard → service → controller → .spec.
 new-schema: define in packages/db → drizzle-kit generate → drizzle-kit migrate → never edit migration manually
 new-webhook-event: identify metadata.type first → branch plan vs product → idempotency check → update → log
 new-cron: @Cron decorator → try/catch obrigatório → log start/end/errors → .spec.ts com mock de clock
+new-seed: criar em seeds/ com nome snake_case → verificar idempotência → ler credenciais do .env → adicionar script pnpm seed:<nome>
 new-error: log via Winston (error + stack trace) → return typed HttpException
 pr-ready: types pass | no `any` | no duplicated logic | tests written | swagger documented | logs added
 
@@ -292,3 +303,4 @@ src/products/      → ecommerce catalog management
 src/scheduler/     → cron jobs (grace period processor)
 src/health/        → /health endpoint
 src/common/        → shared guards, interceptors, filters, decorators
+seeds/             → scripts de seed — snake_case, idempotentes, run via pnpm seed:<nome>
