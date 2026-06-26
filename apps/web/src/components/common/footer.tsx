@@ -88,10 +88,10 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col items-center">
         <Link href="/">
           <Image
-            src="/icons/adaptive-icon.png"
+            src="/icons/jm_logo.svg"
             alt="JM Fitness Studio"
-            width={80}
-            height={80}
+            width={90}
+            height={90}
             className="h-20 w-auto"
           />
         </Link>

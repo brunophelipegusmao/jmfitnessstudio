@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { db, users } from '@jmfitnessstudio/db';
 import { eq } from 'drizzle-orm';
-import { auth } from './src/auth/auth.config';
+import { auth } from '../src/auth/auth.config';
 
 async function seed() {
   const existing = await db.query.users.findFirst({

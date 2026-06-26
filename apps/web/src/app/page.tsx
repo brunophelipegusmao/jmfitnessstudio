@@ -1,9 +1,6 @@
 import HeroCarousel from "@/app/(public)/components/hero-carousel";
-import PlanCard from "@/app/(public)/components/plan-card";
 import SubtitleH2 from "@/app/(public)/components/subtitle-h2";
-import Header from "./(public)/components/header";
-import Link from "next/link";
-import Image from "next/image";
+import Header from "./(public)/components/public-header";
 import SectionStore from "./(public)/components/store-section";
 import SectionPlan from "./(public)/components/plan-section";
 import Footer from "./(public)/components/footer";
@@ -62,7 +59,6 @@ export default function Home() {
         </section>
 
         <SectionPlan />
-
         <SectionStore />
       </main>
       <Footer />

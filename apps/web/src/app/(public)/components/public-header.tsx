@@ -18,10 +18,10 @@ import { Button } from "@/components/ui/button";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between p-4 border-b my-auto px-5 h-auto font-heading bg-primary-foreground">
+    <header className="flex items-center justify-between p-4 my-auto px-5 h-auto font-heading bg-primary-foreground border-b border-b-secondary">
       <Link href="/">
         <Image
-          src="/icons/icon-wt.png"
+          src="/icons/jm_logo.svg"
           alt="JM Fitness Studio"
           className="h-20 w-auto ml-6"
           width={80}
@@ -35,10 +35,7 @@ export default function Header() {
             <Link href="/login">Área do Aluno</Link>
           </li>
           <li className="hidden md:flex mx-4 bg-secondary rounded-full px-4 py-3 animate-pulse">
-            <Link
-              href='/store'
-              className="relative z-10"
-            >
+            <Link href="/store" className="relative z-10">
               JM Store
             </Link>
           </li>
@@ -77,10 +74,7 @@ export default function Header() {
                   <Link href="/login">Área do Aluno</Link>
                 </li>
                 <li className="my-4">
-                  <Link
-                    href='/store'
-                    className="relative z-10"
-                  >
+                  <Link href="/store" className="relative z-10">
                     JM Store
                   </Link>
                 </li>
